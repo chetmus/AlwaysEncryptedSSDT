@@ -1,6 +1,10 @@
 ﻿CREATE TABLE [Authentication].[AspNetUsers] (
     [Id]                   NVARCHAR (128) NOT NULL,
-    [SSN]                  CHAR (11)      NULL,
+    [SSN]                  CHAR (11)      COLLATE Latin1_General_BIN2  ENCRYPTED WITH (
+     COLUMN_ENCRYPTION_KEY = [AuthColumnsKey],
+     ALGORITHM = N'AEAD_AES_256_CBC_HMAC_SHA_256',
+     ENCRYPTION_TYPE = RANDOMIZED
+    ) NULL,
     [Email]                NVARCHAR (256) NULL,
     [EmailConfirmed]       BIT            NOT NULL,
     [PasswordHash]         NVARCHAR (MAX) NULL,
@@ -14,6 +18,8 @@
     [UserName]             NVARCHAR (256) NOT NULL,
     CONSTRAINT [PK_Authentication.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 GO
